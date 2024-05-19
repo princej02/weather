@@ -1,4 +1,4 @@
-type GeoLoacationResponse = {
+export type GeoLoacationData = {
   name: string
   lat: number
   lon: number
@@ -6,7 +6,7 @@ type GeoLoacationResponse = {
   state: string
 }
 
-type WeatherData = {
+export type WeatherData = {
   coord: {
     lon: number;
     lat: number;
