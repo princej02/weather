@@ -13,19 +13,18 @@ export async function GET(req: NextRequest) {
 
   try {
     const weatherResponse = await axios.get(
-      `http://api.openweathermap.org/data/3.0/onecall`, 
+      `https://api.openweathermap.org/data/2.5/weather`, 
       { params: {
         lat,
         lon,
-        units: 'metric',
+        lang: 'en',
         appid: API_KEY
       }}
     );
 
-    const data = weatherResponse.data;
-    return NextResponse.json(data)
-
+    return NextResponse.json(weatherResponse.data)
+    
   } catch (error) {
-
+    return NextResponse.json('Failed to fetch weather data', { status: 400 })
   }
 }
