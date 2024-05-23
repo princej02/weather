@@ -2,8 +2,9 @@
 
 import { useGeolocation } from '@/hooks/useGeolocation';
 import MagnifyingGlassIcon from '@/icons/MagnifyingGlassIcon';
+import { useLocationStore } from '@/store/location';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
@@ -17,6 +18,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading } = useGeolocation(searchTerm)
+  const { setLocation, city: selectedCity, state: selectedState } = useLocationStore();
+
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams)
@@ -33,18 +36,24 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const handleOptionClick = (option: { name: string, state: string, lon: number, lat: number }) => {
     setSearchTerm(option.name);
     setShowOptions(false);
-    console.log(option.lat, option.lon)
+    setLocation(option.name, option.state, option.lat, option.lon)
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (data && data.length > 0) {
-      if (e.key === 'ArrowDown' && selectedOptionIndex !== null && selectedOptionIndex < data.length - 1) {
-        setSelectedOptionIndex(selectedOptionIndex + 1);
-      } else if (e.key === 'ArrowUp' && selectedOptionIndex !== null && selectedOptionIndex > 0) {
-        setSelectedOptionIndex(selectedOptionIndex - 1);
+      if (e.key === 'ArrowDown') {
+        setSelectedOptionIndex((prevIndex) =>
+          prevIndex === null || prevIndex >= data.length - 1 ? 0 : prevIndex + 1
+        );
+      } else if (e.key === 'ArrowUp') {
+        setSelectedOptionIndex((prevIndex) =>
+          prevIndex === null || prevIndex <= 0 ? data.length - 1 : prevIndex - 1
+        );
       } else if (e.key === 'Enter' && selectedOptionIndex !== null) {
-        setSearchTerm(data[selectedOptionIndex].name);
+        const selectedOption = data[selectedOptionIndex];
+        setSearchTerm(selectedOption.name);
         setShowOptions(false);
+        setLocation(selectedOption.name, selectedOption.state, selectedOption.lat, selectedOption.lon);
       }
     }
   };
@@ -52,6 +61,12 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const handleMouseEnter = (index: number) => {
     setSelectedOptionIndex(index);
   };
+
+  useEffect(() => {
+    if (searchTerm) {
+      handleSearch(searchTerm)
+    }
+  }, [searchTerm, handleSearch])
 
   return (
     <>
