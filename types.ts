@@ -62,7 +62,7 @@ export type ForecastData = {
   city: City;
 }
 
-interface ForecastItem {
+export interface ForecastItem {
   dt: number;
   main: Main;
   weather: Weather[];

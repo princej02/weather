@@ -1,7 +1,6 @@
 'use client'
 
 import { useWeather } from "@/hooks/useWeather"
-import { kelvinToCelsius } from "@/libs/utils"
 import { useLocationStore } from "@/store/location"
 
 export const CurrentWeather = () => {
@@ -16,7 +15,7 @@ export const CurrentWeather = () => {
     {data && (
       <div>
         <h2>Weather for {data.name}, {state}</h2>
-        <p>Temp: {kelvinToCelsius(data.main.temp)}</p>
+        <p>Temp: {data.main.temp}°C</p>
       </div>
     )}
     </>
