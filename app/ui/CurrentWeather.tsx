@@ -5,13 +5,13 @@ import Droplet from "@/icons/Droplet"
 import Wind from "@/icons/Wind"
 import { useLocationStore } from "@/store/location"
 import Image from "next/image"
+import { ThreeDots } from "react-loader-spinner"
 
 export const CurrentWeather = () => {
-  const { city, state, latitude, longitude } = useLocationStore()
-  const { data, isLoading, error } = useWeather(latitude, longitude)
+  const { state, latitude, longitude } = useLocationStore()
+  const { data, isLoading } = useWeather(latitude, longitude)
 
-  // if (!latitude || !longitude) return <div>Please select a location to see current weather.</div>
-  if (isLoading) return <div>Loading weather data...</div>
+  if (isLoading) return <ThreeDots visible={true} height="40" width="40" color="#333333" radius="9" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" />
   
   return (
     <>

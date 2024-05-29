@@ -5,6 +5,7 @@ import { formatDate, formatTime } from "@/libs/utils"
 import { useLocationStore } from "@/store/location"
 import { ForecastItem } from "@/types"
 import { useEffect, useState } from "react"
+import { ThreeDots } from "react-loader-spinner"
 
 const Forecast = () => {
   const { city, state, latitude, longitude } = useLocationStore()
@@ -31,11 +32,16 @@ const Forecast = () => {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading Forecast data...</div>
-
+  if (isLoading) return <ThreeDots visible={true} height="40" width="40" color="#333333" radius="9" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" />
+  if (!city || !state) {
+    return null;
+  }
+  
   return (
     <div className="p-4 rounded-md shadow-md border">
-      <h2 className="text-2xl text-zinc-800 font-bold tracking-tight">5-Day Weather Forecast for {city}, {state}</h2>
+      <h2 className="text-2xl text-zinc-800 font-bold tracking-tight">
+        5-Day Weather Forecast for {city}, {state}
+      </h2>
       <div className="flex overflow-x-auto space-x-2 py-2 flex-wrap">
         {Object.entries(groupedData).map(([date, forecasts]) => (
           <div
