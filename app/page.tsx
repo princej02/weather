@@ -1,15 +1,22 @@
 import { CurrentWeather } from './ui/CurrentWeather';
 import Forecast from './ui/Forecast';
-import Search from './ui/search';
+import MapView from './ui/MapView';
 
 
 export default function Home() {
   return (
-    <main className="p-2 flex flex-col gap-4">
-      <h1>Weather App</h1>
-      <Search placeholder="Enter a City..." />
-      <CurrentWeather />
-      <Forecast />
-    </main>
+    <div className="grid">
+      <div className='flex flex-col gap-5 lg:flex-row lg:items-center'>
+        <div className='flex-2'>
+          <CurrentWeather />
+        </div>
+        <div className='flex-3'>
+          <Forecast />
+        </div>
+      </div>
+      <div className='mt-4 w-full'>
+        {/* <MapView /> */}
+      </div>
+    </div>
   );
 }

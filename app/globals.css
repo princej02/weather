@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.flex-2 {
+  flex: 2;
+}
+
+
+.flex-3 {
+  flex: 3;
+}
+
