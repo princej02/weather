@@ -6,7 +6,7 @@ import MapView from './ui/MapView';
 export default function Home() {
   return (
     <div className="grid">
-      <div className='flex flex-col gap-5 lg:flex-row lg:items-center'>
+      <div className='flex flex-col gap-5 lg:flex-row'>
         <div className='flex-2'>
           <CurrentWeather />
         </div>
@@ -15,7 +15,7 @@ export default function Home() {
         </div>
       </div>
       <div className='mt-4 w-full'>
-        {/* <MapView /> */}
+        <MapView />
       </div>
     </div>
   );

@@ -87,7 +87,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
     </div>
     {showOptions && data && data.length > 0 && (
-      <ul className="absolute mt-2 flex flex-col bg-white border border-gray-200 rounded-md shadow-lg">
+      <ul className="absolute mt-2 flex flex-col bg-white border border-gray-200 rounded-md shadow-lg z-50">
         {isLoading && <li className="p-2">Loading...</li>}
         {data?.map((d, i) => (
           <li 
