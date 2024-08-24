@@ -6,12 +6,13 @@ import Wind from "@/icons/Wind"
 import { useLocationStore } from "@/store/location"
 import Image from "next/image"
 import { ThreeDots } from "react-loader-spinner"
+import CurrentWeatherSkeleton from "./Skeletons/CurrentWeatherSkeleton"
 
 export const CurrentWeather = () => {
   const { state, latitude, longitude } = useLocationStore()
   const { data, isLoading } = useWeather(latitude, longitude)
 
-  if (isLoading) return <ThreeDots visible={true} height="40" width="40" color="#333333" radius="9" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" />
+  if (isLoading) return <CurrentWeatherSkeleton />
   
   return (
     <>

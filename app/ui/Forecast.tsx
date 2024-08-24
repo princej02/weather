@@ -5,7 +5,7 @@ import { formatDate, formatTime } from "@/libs/utils"
 import { useLocationStore } from "@/store/location"
 import { ForecastItem } from "@/types"
 import { useEffect, useState } from "react"
-import { ThreeDots } from "react-loader-spinner"
+import ForecastSkeleton from "./Skeletons/ForecastSkeleton"
 
 const Forecast = () => {
   const { city, state, latitude, longitude } = useLocationStore()
@@ -32,7 +32,7 @@ const Forecast = () => {
     }
   }, [data]);
 
-  if (isLoading) return <ThreeDots visible={true} height="40" width="40" color="#333333" radius="9" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" />
+  if (isLoading) return <ForecastSkeleton />
   if (!city || !state) {
     return null;
   }
