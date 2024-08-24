@@ -1,5 +1,6 @@
 import Cloud from "@/icons/Cloud"
 import Search from "./search"
+import { Suspense } from "react"
 
 
 export const Header = () => {
@@ -9,7 +10,9 @@ export const Header = () => {
         <Cloud className="size-10"/>
       </div>
       <div className="flex-1 max-w-lg">
-        <Search placeholder="Enter a city name"/>
+        <Suspense fallback={''}>
+          <Search placeholder="Enter a city name"/>
+        </Suspense>
       </div>
     </header>
   )
